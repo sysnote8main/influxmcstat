@@ -3,37 +3,29 @@ package config
 import "time"
 
 type InfluxConfig struct {
-	ServerUrl string
-	Token     string
-	Org       string
-	Bucket    string
-}
-
-type ServerConfig struct {
-	Address string
-	Enabled bool
+	Url    string `toml:"url"`
+	Token  string `toml:"token"`
+	Org    string `toml:"org"`
+	Bucket string `toml:"bucket"`
 }
 
 type Config struct {
-	TickDuration time.Duration
-	Influx       InfluxConfig
-	Servers      map[string]ServerConfig
+	Duration time.Duration     `toml:"duration"`
+	Influx   InfluxConfig      `toml:"influx"`
+	Servers  map[string]string `toml:"servers"`
 }
 
 func NewConfig() Config {
 	return Config{
-		TickDuration: time.Second * 10,
+		Duration: time.Second * 10,
 		Influx: InfluxConfig{
-			ServerUrl: "http://127.0.0.1:8428",
-			Token:     "auth-token",
-			Org:       "test-org",
-			Bucket:    "test-bucket",
+			Url:    "http://127.0.0.1:8428",
+			Token:  "auth-token",
+			Org:    "test-org",
+			Bucket: "test-bucket",
 		},
-		Servers: map[string]ServerConfig{
-			"hypixel": {
-				Address: "mc.hypixel.net",
-				Enabled: true,
-			},
+		Servers: map[string]string{
+			"hypixel": "mc.hypixel.net",
 		},
 	}
 }

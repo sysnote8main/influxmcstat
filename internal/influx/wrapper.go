@@ -12,7 +12,7 @@ import (
 
 func NewClient(config config.InfluxConfig) *Client {
 	// Create a client and async write api
-	influxClient := influxdb2.NewClient(config.ServerUrl, config.Token)
+	influxClient := influxdb2.NewClient(config.Url, config.Token)
 	writeApi := influxClient.WriteAPI(config.Org, config.Bucket)
 
 	// Error handling

@@ -26,6 +26,9 @@ go.work
 
 # End of https://www.toptal.com/developers/gitignore/api/go
 
-config.toml
 # Added by goreleaser init:
 dist/
+
+# Custom ignore list
+config.toml
+influxmcstat

@@ -25,13 +25,9 @@ func main() {
 
 	fmt.Println("Start sending metrics... (Press Ctrl+C to stop)")
 
-	breakableLoop(sigChan, config.TickDuration, func() {
-		for name, server := range config.Servers {
-			if !server.Enabled {
-				continue
-			}
-
-			status, err := mcping.Ping(server.Address)
+	breakableLoop(sigChan, config.Duration, func() {
+		for name, address := range config.Servers {
+			status, err := mcping.Ping(address)
 			if err != nil {
 				slog.Warn("Failed to get server info", slog.String("server_name", name))
 				client.WriteMCStat(name, -1, 0)
