@@ -25,7 +25,7 @@ func main() {
 
 	fmt.Println("Start sending metrics... (Press Ctrl+C to stop)")
 
-	breakableLoop(sigChan, func() {
+	breakableLoop(sigChan, config.TickDuration, func() {
 		for name, server := range config.Servers {
 			if !server.Enabled {
 				continue
@@ -46,8 +46,8 @@ func main() {
 	fmt.Println("See you!")
 }
 
-func breakableLoop(stopSignal chan os.Signal, onTick func()) {
-	ticker := time.NewTicker(10 * time.Second)
+func breakableLoop(stopSignal chan os.Signal, tickDuration time.Duration, onTick func()) {
+	ticker := time.NewTicker(tickDuration)
 	defer ticker.Stop()
 	for {
 		select {

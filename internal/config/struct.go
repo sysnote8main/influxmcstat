@@ -1,5 +1,7 @@
 package config
 
+import "time"
+
 type InfluxConfig struct {
 	ServerUrl string
 	Token     string
@@ -13,12 +15,14 @@ type ServerConfig struct {
 }
 
 type Config struct {
-	Influx  InfluxConfig
-	Servers map[string]ServerConfig
+	TickDuration time.Duration
+	Influx       InfluxConfig
+	Servers      map[string]ServerConfig
 }
 
 func NewConfig() Config {
 	return Config{
+		TickDuration: time.Second * 10,
 		Influx: InfluxConfig{
 			ServerUrl: "http://127.0.0.1:8428",
 			Token:     "auth-token",
